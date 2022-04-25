@@ -1,26 +1,17 @@
-package models
+package category
 
 import "github.com/astaxie/beego/orm"
+import "api-core/models"
 
-type Category struct {
-	Id   int
-	Name string `orm:"size(100)"`
-}
-
-func insert(category *Category) (bool, error) {
+func Insert(category *models.Category) (bool, error) {
 	o := orm.NewOrm()
 	i, err := o.Insert(category)
 	return i > 0, err
 }
 
-func list() []*Category {
-	var categorys []*Category
+func List() []*models.Category {
+	var categorys []*models.Category
 	o := orm.NewOrm()
-	o.Read(&categorys)
+	o.QueryTable(new(models.Category)).All(&categorys)
 	return categorys
-}
-
-func init() {
-	// register model
-	orm.RegisterModel(new(Category))
 }

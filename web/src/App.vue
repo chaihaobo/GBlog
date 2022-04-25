@@ -1,12 +1,21 @@
 <template>
   <v-app>
-    <v-navigation-drawer width="500px" app>
+
+
+    <v-navigation-drawer app >
       <CategoryNavigationDrawer/>
-    </v-navigation-drawer>
+    </v-navigation-drawer><!-- -->
 
     <!-- Sizes your content based upon application components -->
     <v-main>
+      <v-app-bar
+          color="deep-purple"
+          dark
+          :src="require('../public/images/category-navigation-drawer.png')"
+      >
 
+        <v-toolbar-title>{{ $t("contentTitle") }}</v-toolbar-title>
+      </v-app-bar>
       <!-- Provides the application the proper gutter -->
       <v-container fluid>
 
@@ -19,11 +28,13 @@
       <!-- -->
     </v-footer>
   </v-app>
+
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import CategoryNavigationDrawer from './components/CategoryNavigationDrawer.vue'
+import CategoryNavigationDrawer from '@/components/CategoryNavigationDrawer.vue'
+
 
 export default Vue.extend({
   name: 'App',
@@ -38,6 +49,7 @@ export default Vue.extend({
       {text: 'Audience', icon: 'mdi-account'},
       {text: 'Conversions', icon: 'mdi-flag'},
     ],
+    drawer: false,
   }),
 });
 </script>

@@ -1,7 +1,7 @@
 import axios from "axios";
 const defaultConfig = {
     // baseURL在此处省略配置,考虑到项目可能由多人协作完成开发，域名也各不相同，此处通过对api的抽离，域名单独配置在base.js中
-
+    baseURL:"/mock",
     // 请求超时时间
     timeout: 60 * 1000,
     // 跨域请求时是否需要凭证

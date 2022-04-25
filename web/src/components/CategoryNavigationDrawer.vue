@@ -1,47 +1,53 @@
 <template>
-  <v-navigation-drawer width="500px" app>
-    <!-- -->
-    <v-list dense>
-      <v-list-item-group v-model="item" color="primary">
-        <v-list-item
-            v-for="(item, i) in items"
-            :key="i"
-        >
-          <v-list-item-icon>
-            <v-icon v-text="item.icon"></v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.text"></v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
+  <v-navigation-drawer
+      absolute
+      dark
+      :src="imageUrl"
+      width="100%"
+      permanent
+  >
+    <v-list>
+      <v-list-item
+          v-for="([icon, text], i) in items"
+          :key="i"
+          link
+      >
+        <v-list-item-icon>
+          <v-icon>{{ icon }}</v-icon>
+        </v-list-item-icon>
 
+        <v-list-item-content>
+          <v-list-item-title>{{ text }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
   </v-navigation-drawer>
 
 </template>
 
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
-
+import categoryController from "@/controller/category-controller";
+import _axios from "@/api";
+import Category from "@/model/Category";
 @Component({
   components: {},
 })
 export default class HomeView extends Vue {
   public item = 1;
+  public imageUrl = require('../../public/images/category-navigation-drawer.png')
   public items = [
-    {text: 'Real-Time', icon: 'mdi-clock'},
-    {text: 'Audience', icon: 'mdi-account'},
-    {text: 'Conversions', icon: 'mdi-flag'},
+    ['mdi-email', 'Inbox'],
+    ['mdi-account-supervisor-circle', 'Supervisors'],
+    ['mdi-clock-start', 'Clock-in'],
   ];
+  public categoryList!:Category[];
 
-  public created(): void {
-    this.$http.get("/api/category/list")
-        .then(value => {
-          console.log(value)
-        })
-    console.log(this.$http)
-    console.log('created');
+  public async created() {
+    let categories = await categoryController.categoryList();
+    console.log(categories)
+
+
   }
 
 

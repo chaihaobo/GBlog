@@ -1,0 +1,12 @@
+### 保存分类
+POST http://127.0.0.1:8081/category/save
+Content-Type: application/json
+
+{
+  "name": "SpringBoot"
+}
+
+
+### 分类类别
+GET http://127.0.0.1:8081/category/list
+Content-Type: application/json

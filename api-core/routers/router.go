@@ -6,5 +6,10 @@ import (
 )
 
 func init() {
-    beego.Router("/", &controllers.MainController{})
+	beego.Router("/", &controllers.MainController{})
+	categoryNs := beego.NewNamespace("/category",
+		beego.NSRouter("/list", &controllers.CategoryController{}, "get:List"),
+		beego.NSRouter("/save", &controllers.CategoryController{}, "post:Save"),
+	)
+	beego.AddNamespace(categoryNs)
 }
