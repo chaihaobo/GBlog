@@ -12,5 +12,14 @@ GET http://127.0.0.1:8081/category/list
 Content-Type: application/json
 
 ### 分类删除
-
 DELETE http://127.0.0.1:8081/category/9
+
+
+### 文章添加
+POST http://127.0.0.1:8081/article/save
+Content-Type: application/json
+
+{
+  "categoryId": 1,
+  "title": "test"
+}
