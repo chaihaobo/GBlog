@@ -10,6 +10,7 @@ func init() {
 	categoryNs := beego.NewNamespace("/category",
 		beego.NSRouter("/list", &controllers.CategoryController{}, "get:List"),
 		beego.NSRouter("/save", &controllers.CategoryController{}, "post:Save"),
+		beego.NSRouter("/:id:int", &controllers.CategoryController{}, "delete:Delete"),
 	)
 	beego.AddNamespace(categoryNs)
 }

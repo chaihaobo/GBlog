@@ -2,22 +2,29 @@ package controllers
 
 import (
 	"api-core/models"
-	"api-core/models/category"
+	categoryModel "api-core/models/category"
+	"strconv"
 )
 
 type CategoryController struct {
 	BaseController
 }
 
-// @router /save [post]
-func (this *CategoryController) Save() {
+func (c *CategoryController) Save() {
 	var category models.Category
-	this.parseBody(&category)
-	this.validation(&category)
-	this.success()
+	c.parseBody(&category)
+	c.validation(&category)
+	categoryModel.Save(&category)
+	c.success()
 }
 
-// @router /list [get]
-func (this *CategoryController) List() {
-	this.successData(category.List())
+func (c *CategoryController) List() {
+	c.successData(categoryModel.List())
+}
+
+func (c *CategoryController) Delete() {
+	param := c.Ctx.Input.Param(":id")
+	id, _ := strconv.Atoi(param)
+	categoryModel.Delete(id)
+	c.success()
 }

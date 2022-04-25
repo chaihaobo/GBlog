@@ -2,6 +2,7 @@ export default class Category {
    private _id!:number;
    private _name!:number;
    private _createTime!:string;
+   private updateTime!:string;
 
    get id(): number {
       return this._id;

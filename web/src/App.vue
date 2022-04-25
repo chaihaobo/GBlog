@@ -1,21 +1,18 @@
 <template>
   <v-app>
+    <v-app-bar
+        app
+        dark
+        :clipped-left="true"
+    >
+    <CategoryNavigationDrawer/>
 
 
-    <v-navigation-drawer app >
-      <CategoryNavigationDrawer/>
-    </v-navigation-drawer><!-- -->
-
+      <v-toolbar-title>{{ $t("contentTitle") }}</v-toolbar-title>
+    </v-app-bar>
     <!-- Sizes your content based upon application components -->
     <v-main>
-      <v-app-bar
-          color="deep-purple"
-          dark
-          :src="require('../public/images/category-navigation-drawer.png')"
-      >
 
-        <v-toolbar-title>{{ $t("contentTitle") }}</v-toolbar-title>
-      </v-app-bar>
       <!-- Provides the application the proper gutter -->
       <v-container fluid>
 
@@ -24,9 +21,6 @@
       </v-container>
     </v-main>
 
-    <v-footer app>
-      <!-- -->
-    </v-footer>
   </v-app>
 
 </template>
@@ -53,3 +47,11 @@ export default Vue.extend({
   }),
 });
 </script>
+
+<style>
+
+body{
+  height: 100%;
+  width: 100%;
+}
+</style>

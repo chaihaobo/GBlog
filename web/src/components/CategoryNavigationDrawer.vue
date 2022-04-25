@@ -1,23 +1,19 @@
 <template>
   <v-navigation-drawer
-      absolute
+      app
       dark
-      :src="imageUrl"
-      width="100%"
-      permanent
+      :width="200"
+      :absolute="true"
+
   >
     <v-list>
       <v-list-item
-          v-for="([icon, text], i) in items"
-          :key="i"
+          v-for="item in items"
+          :key="item.id"
           link
       >
-        <v-list-item-icon>
-          <v-icon>{{ icon }}</v-icon>
-        </v-list-item-icon>
-
         <v-list-item-content>
-          <v-list-item-title>{{ text }}</v-list-item-title>
+          <v-list-item-title>{{ item.name }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -28,26 +24,16 @@
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
 import categoryController from "@/controller/category-controller";
-import _axios from "@/api";
 import Category from "@/model/Category";
+
 @Component({
   components: {},
 })
 export default class HomeView extends Vue {
-  public item = 1;
-  public imageUrl = require('../../public/images/category-navigation-drawer.png')
-  public items = [
-    ['mdi-email', 'Inbox'],
-    ['mdi-account-supervisor-circle', 'Supervisors'],
-    ['mdi-clock-start', 'Clock-in'],
-  ];
-  public categoryList!:Category[];
+  public items: Category[] = [];
 
   public async created() {
-    let categories = await categoryController.categoryList();
-    console.log(categories)
-
-
+    this.items = await categoryController.categoryList();
   }
 
 
