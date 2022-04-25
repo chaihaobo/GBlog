@@ -1,5 +1,6 @@
 <template>
   <v-navigation-drawer
+      v-model="show"
       app
       dark
       :width="200"
@@ -7,6 +8,13 @@
 
   >
     <v-list>
+      <v-list-item
+          link
+      >
+        <v-list-item-content>
+          <v-list-item-title>{{ $t("all-category") }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
       <v-list-item
           v-for="item in items"
           :key="item.id"
@@ -22,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue} from 'vue-property-decorator';
+import {Component, Vue,Prop} from 'vue-property-decorator';
 import categoryController from "@/controller/category-controller";
 import Category from "@/model/Category";
 
@@ -31,6 +39,7 @@ import Category from "@/model/Category";
 })
 export default class HomeView extends Vue {
   public items: Category[] = [];
+  @Prop({ default: true }) show!: boolean;
 
   public async created() {
     this.items = await categoryController.categoryList();

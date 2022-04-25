@@ -1,23 +1,20 @@
 <template>
   <v-app>
+    <CategoryNavigationDrawer :show="showDrawer"/>
     <v-app-bar
         app
         dark
-        :clipped-left="true"
     >
-    <CategoryNavigationDrawer/>
-
-
-      <v-toolbar-title>{{ $t("contentTitle") }}</v-toolbar-title>
+      <v-app-bar-nav-icon @click.stop="showDrawer = !showDrawer"></v-app-bar-nav-icon>
     </v-app-bar>
     <!-- Sizes your content based upon application components -->
     <v-main>
 
       <!-- Provides the application the proper gutter -->
-      <v-container fluid>
+      <v-container style="height: 100%;max-height: 100%" fluid>
 
         <!-- If using vue-router -->
-        <router-view></router-view>
+        <router-view style="height: 100%;max-height: 100%;overflow-x: hidden;overflow-y: scroll"></router-view>
       </v-container>
     </v-main>
 
@@ -37,12 +34,7 @@ export default Vue.extend({
   },
 
   data: () => ({
-    item: 1,
-    items: [
-      {text: 'Real-Time', icon: 'mdi-clock'},
-      {text: 'Audience', icon: 'mdi-account'},
-      {text: 'Conversions', icon: 'mdi-flag'},
-    ],
+    showDrawer: true,
     drawer: false,
   }),
 });
@@ -50,7 +42,7 @@ export default Vue.extend({
 
 <style>
 
-body{
+body {
   height: 100%;
   width: 100%;
 }
