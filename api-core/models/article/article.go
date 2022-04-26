@@ -19,7 +19,20 @@ func SelectById(id int) *models.Article {
 	if err != nil {
 		return nil
 	}
+	o.LoadRelated(&entity, "Category")
 	return &entity
+}
+
+func ListByCategoryId(categoryId int) []*models.Article {
+	var articleList []*models.Article
+	o := orm.NewOrm()
+	if categoryId > 0 {
+		o.QueryTable(new(models.Article)).Filter("category__id", categoryId).OrderBy("createTime").All(&articleList)
+	} else {
+		o.QueryTable(new(models.Article)).OrderBy("createTime").All(&articleList)
+	}
+
+	return articleList
 }
 
 func Save(dto *dto.ArticleDTO) bool {
@@ -47,7 +60,7 @@ func Save(dto *dto.ArticleDTO) bool {
 			Content:  dto.Content,
 			Category: cat,
 		}
-		if _, err := o.Insert(entity); err != nil {
+		if _, err := o.Insert(&entity); err != nil {
 			return false
 		}
 	}

@@ -26,6 +26,6 @@ type Category struct {
 type Article struct {
 	BaseModel
 	Title    string    `json:"title" valid:"Required"`
-	Content  string    `json:"content" valid:"Required"`
-	Category *Category `orm:"rel(fk)"`
+	Content  string    `json:"content" valid:"Required" orm:"type(text)"`
+	Category *Category `orm:"rel(fk);index"`
 }

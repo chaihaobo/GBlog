@@ -8,16 +8,15 @@
 
   >
     <v-list>
-      <v-list-item
-          link
-      >
+      <v-list-item @click="gotoArticleList(0)" link>
         <v-list-item-content>
           <v-list-item-title>{{ $t("all-category") }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item
-          v-for="item in items"
+          v-for="item in store.categoryList"
           :key="item.id"
+          @click="gotoArticleList(item.id)"
           link
       >
         <v-list-item-content>
@@ -30,19 +29,29 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue,Prop} from 'vue-property-decorator';
+import {Component, Vue, Prop} from 'vue-property-decorator';
+import {useMainStore} from "@/store/main";
 import categoryController from "@/controller/category-controller";
 import Category from "@/model/Category";
+import {mapState} from "pinia";
 
 @Component({
   components: {},
 })
 export default class HomeView extends Vue {
   public items: Category[] = [];
-  @Prop({ default: true }) show!: boolean;
+  public store = useMainStore()
+  @Prop({default: true}) show!: boolean;
 
   public async created() {
-    this.items = await categoryController.categoryList();
+    await this.store.loadCategoryList()
+  }
+
+  public async gotoArticleList(categoryId: number) {
+    if (this.$route.path != "/") {
+      this.$router.push("/")
+    }
+    this.store.loadArticleByCategoryId(categoryId)
   }
 
 

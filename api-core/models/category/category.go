@@ -61,6 +61,11 @@ func List() []*models.Category {
 	var categorys []*models.Category
 	o := orm.NewOrm()
 	o.QueryTable(new(models.Category)).All(&categorys)
+	for _, category := range categorys {
+		if _, error := o.LoadRelated(category, "article"); error != nil {
+			print(error.Error())
+		}
+	}
 	return categorys
 }
 

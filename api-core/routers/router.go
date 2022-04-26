@@ -14,6 +14,8 @@ func init() {
 	)
 	articleNs := beego.NewNamespace("/article",
 		beego.NSRouter("/save", &controllers.ArticleController{}, "post:Save"),
+		beego.NSRouter("/:id:int", &controllers.ArticleController{}, "get:Get"),
+		beego.NSRouter("/list", &controllers.ArticleController{}, "get:List"),
 	)
 	beego.AddNamespace(categoryNs)
 	beego.AddNamespace(articleNs)

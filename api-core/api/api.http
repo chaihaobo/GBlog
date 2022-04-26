@@ -15,11 +15,18 @@ Content-Type: application/json
 DELETE http://127.0.0.1:8081/category/9
 
 
-### 文章添加
+### 文章添加/修改
 POST http://127.0.0.1:8081/article/save
 Content-Type: application/json
 
 {
   "categoryId": 1,
-  "title": "test"
+  "title": "test",
+  "content": "test"
 }
+
+### 文章获取
+GET http://127.0.0.1:8081/article/1
+
+### 文章列表获取
+GET http://127.0.0.1:8081/article/list?categoryId=1
