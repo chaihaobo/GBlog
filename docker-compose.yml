@@ -1,0 +1,11 @@
+version: '3'
+services:
+  api-core:
+    build: ./api-core/
+    ports:
+      - "8081:8081"
+ web:
+    build: ./web/
+    network_mode: "service:[api-core]"
+    ports:
+      - "80:80"
